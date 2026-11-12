@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% for birthday in birthdays %}
+  {% for birthday in page_obj %}
     <div>
       <div>
-        {{ birthday.first_name }} {{ birthday.last_name }} - {{ birthday.birthday }}
+        {{ birthday.first_name }} {{ birthday.last_name }} - {{ birthday.birthday }}<br>
+        <a href="{% url 'birthday:detail' birthday.id %}">Сколько до дня рождения?</a>
       </div>
       <div>
         <a href="{% url 'birthday:edit' birthday.id %}">Изменить запись</a>
@@ -16,4 +17,18 @@
       {% endif %}
     </div>
   {% endfor %}
+
+  {% if page_obj.has_other_pages %}
+    <div class="pagination mt-4">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+      {% endif %}
+      
+      <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+      
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+      {% endif %}
+    </div>
+  {% endif %}
 {% endblock %}
