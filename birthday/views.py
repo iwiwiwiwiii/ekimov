@@ -17,11 +17,13 @@ class BirthdayListView(ListView):
 class BirthdayCreateView(CreateView):
     model = Birthday
     form_class = BirthdayForm
+    template_name = 'birthday/birthday.html'
 
 
 class BirthdayUpdateView(UpdateView):
     model = Birthday
     form_class = BirthdayForm
+    template_name = 'birthday/birthday.html'
 
 
 class BirthdayDeleteView(DeleteView):
